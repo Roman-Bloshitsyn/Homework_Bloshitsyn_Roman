@@ -18,6 +18,33 @@ module conv_first_to_last_no_ready
     output               down_last,
     output [width - 1:0] down_data
 );
+    logic [width - 1:0] up_data_delay;
+    logic delay_1;
+    logic delay_2;   
+    
+    always_ff @ (posedge clock)
+        if (reset) begin
+            delay_1 <= '0;
+            delay_2 <= '0;
+        end else begin
+            delay_1 <= up_valid ? 1'b1 : delay_1;
+            delay_2 <= up_first ? 1'b1 : delay_2;
+        end
+
+    assign down_valid = (up_valid & delay_1);
+
+    always @(posedge clock)
+        if (reset)
+            up_data_delay <= '0;
+        else 
+            up_data_delay <= up_valid ? up_data : up_data_delay;
+    
+    assign down_data = up_valid ? up_data_delay : 'b0;
+
+
+    
+    assign down_last = up_first & up_valid & delay_2;
+
     // Task:
     // Implement a module that converts 'first' input status signal
     // to the 'last' output status signal.

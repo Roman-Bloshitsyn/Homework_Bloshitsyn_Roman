@@ -15,7 +15,59 @@ module put_in_order
     output [ width   - 1 : 0 ]  down_data
 );
 
-    // Task:
+//---------------------------------------------------------------------
+//Буфер, который хранит в себе значения, пришедших данных
+
+    logic [width - 1:0] bufer [0:n_inputs - 1];
+    logic [n_inputs - 1:0] bufer_vld;  
+    
+    always_ff @(posedge clk)
+    begin
+        for (int i = 0; i < n_inputs; i++)
+            if (up_vlds [i]) 
+            begin
+                bufer [i] <= up_data [i];
+                bufer_vld [i] <= up_vlds [i];
+            end
+    end
+
+//---------------------------------------------------------------------
+//Концепция конечного автомата
+
+    logic [$clog2(n_inputs) - 1:0] state;
+    logic [width - 1:0] down_data_1 [0:n_inputs - 1];
+    logic down_vld_1;
+
+    always_comb
+    begin
+        down_vld_1 = 1'b0;
+        
+        if (bufer_vld [state]) 
+        begin
+            down_data_1 [state] = bufer [state];
+            down_vld_1 = 1'b1;
+        end
+    end
+
+    assign down_vld = down_vld_1;   
+    assign down_data = down_vld_1 ? down_data_1 [state] : 'x;
+
+    always_ff @(posedge clk)
+    begin
+        if (rst)
+            state <= '0;
+        else if (bufer_vld [state]) 
+        begin
+            state <= state + 1'd1;
+            bufer_vld [state] <= '0;
+        end
+    end
+
+//---------------------------------------------------------------------
+
+
+
+    // Task:    
     //
     // Implement a module that accepts many outputs of the computational blocks
     // and outputs them one by one in order. Input signals "up_vlds" and "up_data"

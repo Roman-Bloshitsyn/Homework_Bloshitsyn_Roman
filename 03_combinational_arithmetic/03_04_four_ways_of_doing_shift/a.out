@@ -1,0 +1,411 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "C:\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2009.vpi";
+S_000002493f173730 .scope package, "$unit" "$unit" 2 1;
+ .timescale 0 0;
+S_000002493f1738c0 .scope module, "testbench" "testbench" 3 1;
+ .timescale 0 0;
+P_000002493f156570 .param/l "N" 1 3 3, +C4<00000000000000000000000000001000>;
+P_000002493f1565a8 .param/l "S" 1 3 3, +C4<00000000000000000000000000000011>;
+v000002493f1dd8c0_0 .var "a", 7 0;
+v000002493f1dd1e0 .array "res", 7 0;
+v000002493f1dd1e0_0 .net v000002493f1dd1e0 0, 7 0, L_000002493f1ddaa0; 1 drivers
+v000002493f1dd1e0_1 .net v000002493f1dd1e0 1, 7 0, L_000002493f1ddd20; 1 drivers
+v000002493f1dd1e0_2 .net v000002493f1dd1e0 2, 7 0, v000002493f1ddbe0_0; 1 drivers
+v000002493f1dd1e0_3 .net v000002493f1dd1e0 3, 7 0, L_000002493f1dc920; 1 drivers
+v000002493f1dd1e0_4 .net v000002493f1dd1e0 4, 7 0, L_000002493f1de720; 1 drivers
+v000002493f1dd1e0_5 .net v000002493f1dd1e0 5, 7 0, L_000002493f1dd3c0; 1 drivers
+v000002493f1dd1e0_6 .net v000002493f1dd1e0 6, 7 0, v000002493f1de7c0_0; 1 drivers
+v000002493f1dd1e0_7 .net v000002493f1dd1e0 7, 7 0, L_000002493f1e72f0; 1 drivers
+S_000002493f167c70 .scope begin, "$ivl_for_loop2" "$ivl_for_loop2" 3 40, 3 40 0, S_000002493f1738c0;
+ .timescale 0 0;
+v000002493f1823d0_0 .var/2s "i", 31 0;
+S_000002493f167e00 .scope begin, "$ivl_for_loop3" "$ivl_for_loop3" 3 45, 3 45 0, S_000002493f1738c0;
+ .timescale 0 0;
+v000002493f182330_0 .var/2s "i", 31 0;
+S_000002493f16bd30 .scope module, "i0" "left_shift_of_8_by_3_using_left_shift_operation" 3 7, 4 5 0, S_000002493f1738c0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 8 "a";
+    .port_info 1 /OUTPUT 8 "res";
+v000002493f181f70_0 .net *"_ivl_2", 4 0, L_000002493f1de4a0;  1 drivers
+L_000002493f220088 .functor BUFT 1, C4<000>, C4<0>, C4<0>, C4<0>;
+v000002493f1816b0_0 .net *"_ivl_4", 2 0, L_000002493f220088;  1 drivers
+v000002493f181bb0_0 .net "a", 7 0, v000002493f1dd8c0_0;  1 drivers
+v000002493f181cf0_0 .net "res", 7 0, L_000002493f1ddaa0;  alias, 1 drivers
+L_000002493f1de4a0 .part v000002493f1dd8c0_0, 0, 5;
+L_000002493f1ddaa0 .concat [ 3 5 0 0], L_000002493f220088, L_000002493f1de4a0;
+S_000002493f16bec0 .scope module, "i1" "left_shift_of_8_by_3_using_concatenation" 3 8, 4 14 0, S_000002493f1738c0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 8 "a";
+    .port_info 1 /OUTPUT 8 "res";
+v000002493f1820b0_0 .net *"_ivl_1", 4 0, L_000002493f1de360;  1 drivers
+L_000002493f2200d0 .functor BUFT 1, C4<000>, C4<0>, C4<0>, C4<0>;
+v000002493f181e30_0 .net/2u *"_ivl_2", 2 0, L_000002493f2200d0;  1 drivers
+v000002493f181ed0_0 .net "a", 7 0, v000002493f1dd8c0_0;  alias, 1 drivers
+v000002493f182010_0 .net "res", 7 0, L_000002493f1ddd20;  alias, 1 drivers
+L_000002493f1de360 .part v000002493f1dd8c0_0, 0, 5;
+L_000002493f1ddd20 .concat [ 3 5 0 0], L_000002493f2200d0, L_000002493f1de360;
+S_000002493f169c60 .scope module, "i2" "left_shift_of_8_by_3_using_for_inside_always" 3 9, 4 22 0, S_000002493f1738c0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 8 "a";
+    .port_info 1 /OUTPUT 8 "res";
+v000002493f1dce20_0 .net "a", 7 0, v000002493f1dd8c0_0;  alias, 1 drivers
+v000002493f1ddbe0_0 .var "res", 7 0;
+E_000002493f1851f0 .event anyedge, v000002493f181bb0_0;
+S_000002493f169df0 .scope begin, "$ivl_for_loop0" "$ivl_for_loop0" 4 25, 4 25 0, S_000002493f169c60;
+ .timescale 0 0;
+v000002493f182150_0 .var/2s "i", 31 0;
+S_000002493f0ae460 .scope module, "i3" "left_shift_of_8_by_3_using_for_inside_generate" 3 10, 4 33 0, S_000002493f1738c0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 8 "a";
+    .port_info 1 /OUTPUT 8 "res";
+v000002493f1dcc40_0 .net "a", 7 0, v000002493f1dd8c0_0;  alias, 1 drivers
+v000002493f1dd5a0_0 .net "res", 7 0, L_000002493f1dc920;  alias, 1 drivers
+L_000002493f1ddc80 .part v000002493f1dd8c0_0, 0, 1;
+L_000002493f1de540 .part v000002493f1dd8c0_0, 1, 1;
+L_000002493f1de5e0 .part v000002493f1dd8c0_0, 2, 1;
+L_000002493f1dd280 .part v000002493f1dd8c0_0, 3, 1;
+L_000002493f220118 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+L_000002493f220160 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+L_000002493f2201a8 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+LS_000002493f1dc920_0_0 .concat8 [ 1 1 1 1], L_000002493f220118, L_000002493f220160, L_000002493f2201a8, L_000002493f1ddc80;
+LS_000002493f1dc920_0_4 .concat8 [ 1 1 1 1], L_000002493f1de540, L_000002493f1de5e0, L_000002493f1dd280, L_000002493f1de680;
+L_000002493f1dc920 .concat8 [ 4 4 0 0], LS_000002493f1dc920_0_0, LS_000002493f1dc920_0_4;
+L_000002493f1de680 .part v000002493f1dd8c0_0, 4, 1;
+S_000002493f0ae5f0 .scope generate, "genblk1[0]" "genblk1[0]" 4 38, 4 38 0, S_000002493f0ae460;
+ .timescale 0 0;
+P_000002493f185930 .param/l "i" 0 4 38, +C4<00>;
+S_000002493f165c20 .scope generate, "zero_bit_gen" "zero_bit_gen" 4 39, 4 39 0, S_000002493f0ae5f0;
+ .timescale 0 0;
+v000002493f1ddf00_0 .net/2u *"_ivl_0", 0 0, L_000002493f220118;  1 drivers
+S_000002493f165db0 .scope generate, "genblk1[1]" "genblk1[1]" 4 38, 4 38 0, S_000002493f0ae460;
+ .timescale 0 0;
+P_000002493f185d70 .param/l "i" 0 4 38, +C4<01>;
+S_000002493f165480 .scope generate, "zero_bit_gen" "zero_bit_gen" 4 39, 4 39 0, S_000002493f165db0;
+ .timescale 0 0;
+v000002493f1de2c0_0 .net/2u *"_ivl_0", 0 0, L_000002493f220160;  1 drivers
+S_000002493f165610 .scope generate, "genblk1[2]" "genblk1[2]" 4 38, 4 38 0, S_000002493f0ae460;
+ .timescale 0 0;
+P_000002493f185330 .param/l "i" 0 4 38, +C4<010>;
+S_000002493f132510 .scope generate, "zero_bit_gen" "zero_bit_gen" 4 39, 4 39 0, S_000002493f165610;
+ .timescale 0 0;
+v000002493f1dcce0_0 .net/2u *"_ivl_0", 0 0, L_000002493f2201a8;  1 drivers
+S_000002493f1dec50 .scope generate, "genblk1[3]" "genblk1[3]" 4 38, 4 38 0, S_000002493f0ae460;
+ .timescale 0 0;
+P_000002493f185430 .param/l "i" 0 4 38, +C4<011>;
+S_000002493f1deac0 .scope generate, "shifted_bit_gen" "shifted_bit_gen" 4 39, 4 39 0, S_000002493f1dec50;
+ .timescale 0 0;
+v000002493f1dd6e0_0 .net *"_ivl_0", 0 0, L_000002493f1ddc80;  1 drivers
+S_000002493f1df420 .scope generate, "genblk1[4]" "genblk1[4]" 4 38, 4 38 0, S_000002493f0ae460;
+ .timescale 0 0;
+P_000002493f168ad0 .param/l "i" 0 4 38, +C4<0100>;
+S_000002493f1dede0 .scope generate, "shifted_bit_gen" "shifted_bit_gen" 4 39, 4 39 0, S_000002493f1df420;
+ .timescale 0 0;
+v000002493f1ddfa0_0 .net *"_ivl_0", 0 0, L_000002493f1de540;  1 drivers
+S_000002493f1df740 .scope generate, "genblk1[5]" "genblk1[5]" 4 38, 4 38 0, S_000002493f0ae460;
+ .timescale 0 0;
+P_000002493f169310 .param/l "i" 0 4 38, +C4<0101>;
+S_000002493f1def70 .scope generate, "shifted_bit_gen" "shifted_bit_gen" 4 39, 4 39 0, S_000002493f1df740;
+ .timescale 0 0;
+v000002493f1de400_0 .net *"_ivl_0", 0 0, L_000002493f1de5e0;  1 drivers
+S_000002493f1df290 .scope generate, "genblk1[6]" "genblk1[6]" 4 38, 4 38 0, S_000002493f0ae460;
+ .timescale 0 0;
+P_000002493f1690d0 .param/l "i" 0 4 38, +C4<0110>;
+S_000002493f1df5b0 .scope generate, "shifted_bit_gen" "shifted_bit_gen" 4 39, 4 39 0, S_000002493f1df290;
+ .timescale 0 0;
+v000002493f1dddc0_0 .net *"_ivl_0", 0 0, L_000002493f1dd280;  1 drivers
+S_000002493f1de930 .scope generate, "genblk1[7]" "genblk1[7]" 4 38, 4 38 0, S_000002493f0ae460;
+ .timescale 0 0;
+P_000002493f169890 .param/l "i" 0 4 38, +C4<0111>;
+S_000002493f1df100 .scope generate, "shifted_bit_gen" "shifted_bit_gen" 4 39, 4 39 0, S_000002493f1de930;
+ .timescale 0 0;
+v000002493f1dd820_0 .net *"_ivl_0", 0 0, L_000002493f1de680;  1 drivers
+S_000002493f1e1d00 .scope module, "i4" "right_shift_of_N_by_S_using_right_shift_operation" 3 13, 4 55 0, S_000002493f1738c0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 8 "a";
+    .port_info 1 /OUTPUT 8 "res";
+P_000002493f156bf0 .param/l "N" 0 4 56, +C4<00000000000000000000000000001000>;
+P_000002493f156c28 .param/l "S" 0 4 56, +C4<00000000000000000000000000000011>;
+v000002493f1dcd80_0 .net *"_ivl_2", 4 0, L_000002493f1dca60;  1 drivers
+L_000002493f2201f0 .functor BUFT 1, C4<000>, C4<0>, C4<0>, C4<0>;
+v000002493f1dd500_0 .net *"_ivl_4", 2 0, L_000002493f2201f0;  1 drivers
+v000002493f1de0e0_0 .net "a", 7 0, v000002493f1dd8c0_0;  alias, 1 drivers
+v000002493f1dd640_0 .net "res", 7 0, L_000002493f1de720;  alias, 1 drivers
+L_000002493f1dca60 .part v000002493f1dd8c0_0, 3, 5;
+L_000002493f1de720 .concat [ 5 3 0 0], L_000002493f1dca60, L_000002493f2201f0;
+S_000002493f1e24d0 .scope module, "i5" "right_shift_of_N_by_S_using_concatenation" 3 16, 4 73 0, S_000002493f1738c0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 8 "a";
+    .port_info 1 /OUTPUT 8 "res";
+P_000002493f1565f0 .param/l "N" 0 4 74, +C4<00000000000000000000000000001000>;
+P_000002493f156628 .param/l "S" 0 4 74, +C4<00000000000000000000000000000011>;
+L_000002493f220238 .functor BUFT 1, C4<000>, C4<0>, C4<0>, C4<0>;
+v000002493f1dcba0_0 .net/2u *"_ivl_0", 2 0, L_000002493f220238;  1 drivers
+v000002493f1dde60_0 .net *"_ivl_3", 4 0, L_000002493f1dcb00;  1 drivers
+v000002493f1dd320_0 .net "a", 7 0, v000002493f1dd8c0_0;  alias, 1 drivers
+v000002493f1dc9c0_0 .net "res", 7 0, L_000002493f1dd3c0;  alias, 1 drivers
+L_000002493f1dcb00 .part v000002493f1dd8c0_0, 3, 5;
+L_000002493f1dd3c0 .concat [ 5 3 0 0], L_000002493f1dcb00, L_000002493f220238;
+S_000002493f1e1530 .scope module, "i6" "right_shift_of_N_by_S_using_for_inside_always" 3 19, 4 90 0, S_000002493f1738c0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 8 "a";
+    .port_info 1 /OUTPUT 8 "res";
+P_000002493f156970 .param/l "N" 0 4 91, +C4<00000000000000000000000000001000>;
+P_000002493f1569a8 .param/l "S" 0 4 91, +C4<00000000000000000000000000000011>;
+v000002493f1dcec0_0 .net "a", 7 0, v000002493f1dd8c0_0;  alias, 1 drivers
+v000002493f1de7c0_0 .var "res", 7 0;
+S_000002493f1e13a0 .scope begin, "$ivl_for_loop1" "$ivl_for_loop1" 4 95, 4 95 0, S_000002493f1e1530;
+ .timescale 0 0;
+v000002493f1dd780_0 .var/2s "i", 31 0;
+S_000002493f1e2660 .scope module, "i7" "right_shift_of_N_by_S_using_for_inside_generate" 3 22, 4 107 0, S_000002493f1738c0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 8 "a";
+    .port_info 1 /OUTPUT 8 "res";
+P_000002493f156c70 .param/l "N" 0 4 108, +C4<00000000000000000000000000001000>;
+P_000002493f156ca8 .param/l "S" 0 4 108, +C4<00000000000000000000000000000011>;
+v000002493f1de220_0 .net "a", 7 0, v000002493f1dd8c0_0;  alias, 1 drivers
+v000002493f1dda00_0 .net "res", 7 0, L_000002493f1e72f0;  alias, 1 drivers
+L_000002493f1dd460 .part v000002493f1dd8c0_0, 7, 1;
+L_000002493f1e5c70 .part v000002493f1dd8c0_0, 6, 1;
+L_000002493f1e6f30 .part v000002493f1dd8c0_0, 5, 1;
+L_000002493f1e5bd0 .part v000002493f1dd8c0_0, 4, 1;
+LS_000002493f1e72f0_0_0 .concat8 [ 1 1 1 1], L_000002493f1e6710, L_000002493f1e5bd0, L_000002493f1e6f30, L_000002493f1e5c70;
+L_000002493f220310 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+L_000002493f2202c8 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+L_000002493f220280 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+LS_000002493f1e72f0_0_4 .concat8 [ 1 1 1 1], L_000002493f1dd460, L_000002493f220310, L_000002493f2202c8, L_000002493f220280;
+L_000002493f1e72f0 .concat8 [ 4 4 0 0], LS_000002493f1e72f0_0_0, LS_000002493f1e72f0_0_4;
+L_000002493f1e6710 .part v000002493f1dd8c0_0, 3, 1;
+S_000002493f1e1080 .scope generate, "genblk1[0]" "genblk1[0]" 4 114, 4 114 0, S_000002493f1e2660;
+ .timescale 0 0;
+P_000002493f169790 .param/l "i" 0 4 114, +C4<00>;
+S_000002493f1e2980 .scope generate, "zero_bit_gen" "zero_bit_gen" 4 115, 4 115 0, S_000002493f1e1080;
+ .timescale 0 0;
+v000002493f1dd140_0 .net/2u *"_ivl_0", 0 0, L_000002493f220280;  1 drivers
+S_000002493f1e2340 .scope generate, "genblk1[1]" "genblk1[1]" 4 114, 4 114 0, S_000002493f1e2660;
+ .timescale 0 0;
+P_000002493f169110 .param/l "i" 0 4 114, +C4<01>;
+S_000002493f1e27f0 .scope generate, "zero_bit_gen" "zero_bit_gen" 4 115, 4 115 0, S_000002493f1e2340;
+ .timescale 0 0;
+v000002493f1de040_0 .net/2u *"_ivl_0", 0 0, L_000002493f2202c8;  1 drivers
+S_000002493f1e21b0 .scope generate, "genblk1[2]" "genblk1[2]" 4 114, 4 114 0, S_000002493f1e2660;
+ .timescale 0 0;
+P_000002493f169850 .param/l "i" 0 4 114, +C4<010>;
+S_000002493f1e2b10 .scope generate, "zero_bit_gen" "zero_bit_gen" 4 115, 4 115 0, S_000002493f1e21b0;
+ .timescale 0 0;
+v000002493f1dcf60_0 .net/2u *"_ivl_0", 0 0, L_000002493f220310;  1 drivers
+S_000002493f1e2020 .scope generate, "genblk1[3]" "genblk1[3]" 4 114, 4 114 0, S_000002493f1e2660;
+ .timescale 0 0;
+P_000002493f1693d0 .param/l "i" 0 4 114, +C4<011>;
+S_000002493f1e0d60 .scope generate, "shifted_bit_gen" "shifted_bit_gen" 4 115, 4 115 0, S_000002493f1e2020;
+ .timescale 0 0;
+v000002493f1dd960_0 .net *"_ivl_0", 0 0, L_000002493f1dd460;  1 drivers
+S_000002493f1e16c0 .scope generate, "genblk1[4]" "genblk1[4]" 4 114, 4 114 0, S_000002493f1e2660;
+ .timescale 0 0;
+P_000002493f169210 .param/l "i" 0 4 114, +C4<0100>;
+S_000002493f1e0ef0 .scope generate, "shifted_bit_gen" "shifted_bit_gen" 4 115, 4 115 0, S_000002493f1e16c0;
+ .timescale 0 0;
+v000002493f1dd000_0 .net *"_ivl_0", 0 0, L_000002493f1e5c70;  1 drivers
+S_000002493f1e1850 .scope generate, "genblk1[5]" "genblk1[5]" 4 114, 4 114 0, S_000002493f1e2660;
+ .timescale 0 0;
+P_000002493f168fd0 .param/l "i" 0 4 114, +C4<0101>;
+S_000002493f1e1210 .scope generate, "shifted_bit_gen" "shifted_bit_gen" 4 115, 4 115 0, S_000002493f1e1850;
+ .timescale 0 0;
+v000002493f1ddb40_0 .net *"_ivl_0", 0 0, L_000002493f1e6f30;  1 drivers
+S_000002493f1e19e0 .scope generate, "genblk1[6]" "genblk1[6]" 4 114, 4 114 0, S_000002493f1e2660;
+ .timescale 0 0;
+P_000002493f168b10 .param/l "i" 0 4 114, +C4<0110>;
+S_000002493f1e1b70 .scope generate, "shifted_bit_gen" "shifted_bit_gen" 4 115, 4 115 0, S_000002493f1e19e0;
+ .timescale 0 0;
+v000002493f1de180_0 .net *"_ivl_0", 0 0, L_000002493f1e5bd0;  1 drivers
+S_000002493f1e1e90 .scope generate, "genblk1[7]" "genblk1[7]" 4 114, 4 114 0, S_000002493f1e2660;
+ .timescale 0 0;
+P_000002493f168cd0 .param/l "i" 0 4 114, +C4<0111>;
+S_000002493f1e3bc0 .scope generate, "shifted_bit_gen" "shifted_bit_gen" 4 115, 4 115 0, S_000002493f1e1e90;
+ .timescale 0 0;
+v000002493f1dd0a0_0 .net *"_ivl_0", 0 0, L_000002493f1e6710;  1 drivers
+    .scope S_000002493f169c60;
+T_0 ;
+Ewait_0 .event/or E_000002493f1851f0, E_0x0;
+    %wait Ewait_0;
+    %fork t_1, S_000002493f169df0;
+    %jmp t_0;
+    .scope S_000002493f169df0;
+t_1 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v000002493f182150_0, 0, 32;
+T_0.0 ;
+    %load/vec4 v000002493f182150_0;
+    %cmpi/s 8, 0, 32;
+    %jmp/0xz T_0.1, 5;
+    %load/vec4 v000002493f182150_0;
+    %cmpi/s 3, 0, 32;
+    %flag_mov 8, 5;
+    %jmp/0 T_0.2, 8;
+    %pushi/vec4 0, 0, 1;
+    %jmp/1 T_0.3, 8;
+T_0.2 ; End of true expr.
+    %load/vec4 v000002493f1dce20_0;
+    %load/vec4 v000002493f182150_0;
+    %subi 3, 0, 32;
+    %part/s 1;
+    %jmp/0 T_0.3, 8;
+ ; End of false expr.
+    %blend;
+T_0.3;
+    %ix/getv/s 4, v000002493f182150_0;
+    %store/vec4 v000002493f1ddbe0_0, 4, 1;
+    ; show_stmt_assign_vector: Get l-value for compressed += operand
+    %load/vec4 v000002493f182150_0;
+    %pushi/vec4 1, 0, 32;
+    %add;
+    %cast2;
+    %store/vec4 v000002493f182150_0, 0, 32;
+    %jmp T_0.0;
+T_0.1 ;
+    %end;
+    .scope S_000002493f169c60;
+t_0 %join;
+    %jmp T_0;
+    .thread T_0, $push;
+    .scope S_000002493f1e1530;
+T_1 ;
+Ewait_1 .event/or E_000002493f1851f0, E_0x0;
+    %wait Ewait_1;
+    %fork t_3, S_000002493f1e13a0;
+    %jmp t_2;
+    .scope S_000002493f1e13a0;
+t_3 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v000002493f1dd780_0, 0, 32;
+T_1.0 ;
+    %load/vec4 v000002493f1dd780_0;
+    %cmpi/s 8, 0, 32;
+    %jmp/0xz T_1.1, 5;
+    %load/vec4 v000002493f1dd780_0;
+    %cmpi/s 3, 0, 32;
+    %flag_mov 8, 5;
+    %jmp/0 T_1.2, 8;
+    %pushi/vec4 0, 0, 1;
+    %jmp/1 T_1.3, 8;
+T_1.2 ; End of true expr.
+    %load/vec4 v000002493f1dcec0_0;
+    %pushi/vec4 10, 0, 32;
+    %load/vec4 v000002493f1dd780_0;
+    %sub;
+    %part/s 1;
+    %jmp/0 T_1.3, 8;
+ ; End of false expr.
+    %blend;
+T_1.3;
+    %pushi/vec4 7, 0, 32;
+    %load/vec4 v000002493f1dd780_0;
+    %sub;
+    %ix/vec4/s 4;
+    %store/vec4 v000002493f1de7c0_0, 4, 1;
+    ; show_stmt_assign_vector: Get l-value for compressed += operand
+    %load/vec4 v000002493f1dd780_0;
+    %pushi/vec4 1, 0, 32;
+    %add;
+    %cast2;
+    %store/vec4 v000002493f1dd780_0, 0, 32;
+    %jmp T_1.0;
+T_1.1 ;
+    %end;
+    .scope S_000002493f1e1530;
+t_2 %join;
+    %jmp T_1;
+    .thread T_1, $push;
+    .scope S_000002493f1738c0;
+T_2 ;
+    %pushi/vec4 20, 0, 32;
+T_2.0 %dup/vec4;
+    %pushi/vec4 0, 0, 32;
+    %cmp/s;
+    %jmp/1xz T_2.1, 5;
+    %jmp/1 T_2.1, 4;
+    %pushi/vec4 1, 0, 32;
+    %sub;
+    %vpi_func 3 35 "$urandom" 32 {0 0 0};
+    %pad/u 8;
+    %store/vec4 v000002493f1dd8c0_0, 0, 8;
+    %delay 1, 0;
+    %vpi_call/w 3 38 "$write", "TEST %b", v000002493f1dd8c0_0 {0 0 0};
+    %fork t_5, S_000002493f167c70;
+    %jmp t_4;
+    .scope S_000002493f167c70;
+t_5 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v000002493f1823d0_0, 0, 32;
+T_2.2 ;
+    %load/vec4 v000002493f1823d0_0;
+    %cmpi/s 8, 0, 32;
+    %jmp/0xz T_2.3, 5;
+    %vpi_call/w 3 41 "$write", " %b", &A<v000002493f1dd1e0, v000002493f1823d0_0 > {0 0 0};
+    ; show_stmt_assign_vector: Get l-value for compressed += operand
+    %load/vec4 v000002493f1823d0_0;
+    %pushi/vec4 1, 0, 32;
+    %add;
+    %cast2;
+    %store/vec4 v000002493f1823d0_0, 0, 32;
+    %jmp T_2.2;
+T_2.3 ;
+    %end;
+    .scope S_000002493f1738c0;
+t_4 %join;
+    %vpi_call/w 3 43 "$display" {0 0 0};
+    %fork t_7, S_000002493f167e00;
+    %jmp t_6;
+    .scope S_000002493f167e00;
+t_7 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v000002493f182330_0, 0, 32;
+T_2.4 ;
+    %load/vec4 v000002493f182330_0;
+    %cmpi/s 8, 0, 32;
+    %jmp/0xz T_2.5, 5;
+    %ix/getv/s 4, v000002493f182330_0;
+    %load/vec4a v000002493f1dd1e0, 4;
+    %load/vec4 v000002493f182330_0;
+    %pushi/vec4 4, 0, 32;
+    %div/s;
+    %muli 4, 0, 32;
+    %ix/vec4/s 4;
+    %load/vec4a v000002493f1dd1e0, 4;
+    %cmp/ne;
+    %jmp/0xz  T_2.6, 6;
+    %vpi_call/w 3 48 "$display", "FAIL %s - see above", "testbench.sv" {0 0 0};
+    %vpi_call/w 3 49 "$finish" {0 0 0};
+T_2.6 ;
+    ; show_stmt_assign_vector: Get l-value for compressed += operand
+    %load/vec4 v000002493f182330_0;
+    %pushi/vec4 1, 0, 32;
+    %add;
+    %cast2;
+    %store/vec4 v000002493f182330_0, 0, 32;
+    %jmp T_2.4;
+T_2.5 ;
+    %end;
+    .scope S_000002493f1738c0;
+t_6 %join;
+    %jmp T_2.0;
+T_2.1 ;
+    %pop/vec4 1;
+    %vpi_call/w 3 53 "$display", "PASS %s", "testbench.sv" {0 0 0};
+    %vpi_call/w 3 54 "$finish" {0 0 0};
+    %end;
+    .thread T_2;
+# The file index is used to find the file name in the following table.
+:file_names 5;
+    "N/A";
+    "<interactive>";
+    "-";
+    "testbench.sv";
+    "03_04_four_ways_of_doing_shift.sv";

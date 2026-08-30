@@ -9,6 +9,28 @@ module round_robin_arbiter_with_2_requests
     input  [1:0] requests,
     output [1:0] grants
 );
+
+    logic [1:0] out;
+    logic [1:0] save;
+
+    always_comb begin
+        case (requests)
+            2'b00: out = 2'b00;
+            2'b01: out = 2'b01;
+            2'b10: out = 2'b10;
+            2'b11: out = ~save;
+        endcase
+     end
+
+    assign grants = out;
+
+    always_ff @(posedge clk) 
+        if (rst)
+          save <= '0;
+        else
+          save <= out;
+
+    
     // Task:
     // Implement a "arbiter" module that accepts up to two requests
     // and grants one of them to operate in a round-robin manner.

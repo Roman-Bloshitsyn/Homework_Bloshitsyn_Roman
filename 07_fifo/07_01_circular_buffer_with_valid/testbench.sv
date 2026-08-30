@@ -90,12 +90,8 @@ module testbench;
 
     initial
     begin
-        `ifdef __ICARUS__
-            // Uncomment the following line
-            // to generate a VCD file and analyze it using GTKwave
-
-            // $dumpvars;
-        `endif
+    //$dumpfile("07_fifo/dump.vcd");
+    //$dumpvars(0, testbench);
 
         // We don't need direct tests here,
         // everything should be covered by randomization.

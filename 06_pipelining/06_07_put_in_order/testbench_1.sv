@@ -144,12 +144,8 @@ module testbench_1;
 
   initial
   begin
-    `ifdef __ICARUS__
-        // Uncomment the following line
-        // to generate a VCD file and analyze it using GTKwave
-
-        $dumpvars;
-    `endif
+    $dumpfile("06_07_put_in_order/dump.vcd");
+    $dumpvars(0, testbench_1);
 
     running <= 1'b0;
     reset();

@@ -262,6 +262,7 @@ module testbench;
         else
         begin
             n_cycles <= n_cycles + 1'd1;
+            $display("DEBUG: up_valid=%b down_valid=%b up_ready=%b down_ready=%b", up_valid, down_valid, up_ready, down_ready);
 
             if ( up_valid   & up_ready   ) up_count   <= up_count   + 1'd1;
             if ( down_valid & down_ready ) down_count <= down_count + 1'd1;

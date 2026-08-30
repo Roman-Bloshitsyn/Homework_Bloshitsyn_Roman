@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------------
 
 module testbench;
-
+  `define PD(x) x
     logic clk;
 
     initial
@@ -100,12 +100,8 @@ module testbench;
     //------------------------------------------------------------------------
     initial
     begin
-        `ifdef __ICARUS__
-            // Uncomment the following line
-            // to generate a VCD file and analyze it using GTKwave or Surfer
-
-            // $dumpvars;
-        `endif
+            $dumpfile("dump.vcd");
+            $dumpvars;
 
         @ (negedge rst);
 

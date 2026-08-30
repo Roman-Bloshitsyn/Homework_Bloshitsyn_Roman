@@ -58,7 +58,7 @@ module circular_buffer
 
     logic [pointer_width - 1:0] ptr;
 
-    always_ff @ (posedge clk or posedge rst)
+    always_ff @ (posedge clk or posedge rst) // на след такте запишется
         if (rst)
             ptr <= '0;
         else
@@ -68,7 +68,7 @@ module circular_buffer
 
     logic [width - 1:0] data [0: depth - 1];
 
-    always_ff @ (posedge clk)
+    always_ff @ (posedge clk) // на след такте запишется
         data [ptr] <= in_data;
 
     assign out_data  = data [ptr];
@@ -94,6 +94,38 @@ module circular_buffer_with_valid
     output [width - 1:0] out_data
 );
 
+    localparam pointer_width = $clog2 (depth);
+    localparam [pointer_width - 1:0] max_ptr = pointer_width' (depth - 1);
+
+    logic [pointer_width - 1:0] ptr;
+
+    always_ff @ (posedge clk or posedge rst)
+        if (rst)
+            ptr <= '0; 
+        else                                 
+            ptr <= ( ptr == max_ptr ) ? '0 : ptr + 1'b1; 
+            
+//------------------------------------------------------------------------
+
+    logic [width - 1:0] data [0: depth - 1];
+    logic [depth - 1:0] valid;
+
+     always_ff @ (posedge clk)
+        if (in_valid)
+            data [ptr] <= in_data;    
+        
+     always_ff @ (posedge clk or posedge rst)
+            if (rst)
+                valid <= '0;             
+            else if (in_valid)
+                    valid [ptr] <= 1'b1;
+                 else
+                    valid [ptr] <= 1'b0; 
+
+
+    assign out_data = data [ptr]; 
+    assign out_valid = valid [ptr];
+    
     // Task:
     // Implement a variant of a circular buffer module
     // with support for valid interface. A module should move

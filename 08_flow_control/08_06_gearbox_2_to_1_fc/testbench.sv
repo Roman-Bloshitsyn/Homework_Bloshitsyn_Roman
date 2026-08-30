@@ -100,8 +100,8 @@ module testbench;
         `ifdef __ICARUS__
             // Uncomment the following line
             // to generate a VCD file and analyze it using GTKwave or Surfer
-
-            // $dumpvars;
+            $dumpfile("dump.vcd");
+            $dumpvars;
         `endif
         sample = '0; //MAX_TOKEN;
 

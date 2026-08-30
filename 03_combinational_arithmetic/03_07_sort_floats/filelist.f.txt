@@ -1,0 +1,8 @@
+// Пути к вашим файлам
+*.sv
+
+// Пути к модулям-обёрткам FPU
+../common/wally_fpu/*.sv
+
+// Пути к ядру процессора
+../import/preprocessed/cvw/*.sv

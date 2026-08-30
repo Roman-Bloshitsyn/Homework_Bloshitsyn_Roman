@@ -18,12 +18,13 @@ module tb;
 
     initial
     begin
-        `ifdef __ICARUS__
+
             // Uncomment the following line
             // to generate a VCD file and analyze it using GTKwave
 
-            // $dumpvars;
-        `endif
+            $dumpvars(0, tb);
+            $dumpvars;
+
 
         i_formula_1_pipe_tb             .run ();
         i_formula_1_pipe_aware_fsm_tb   .run ();

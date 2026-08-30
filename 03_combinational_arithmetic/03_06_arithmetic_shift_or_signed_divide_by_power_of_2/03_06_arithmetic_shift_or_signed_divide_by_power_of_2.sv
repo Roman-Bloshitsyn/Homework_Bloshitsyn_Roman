@@ -19,6 +19,8 @@ module arithmetic_right_shift_of_N_by_S_using_concatenation
 # (parameter N = 8, S = 3)
 (input  [N - 1:0] a, output [N - 1:0] res);
 
+  assign res = { { S { a[N-1] } }, a [N - 1:S] };
+
   // Task:
   //
   // Implement a module with the logic for the arithmetic right shift,
@@ -33,6 +35,11 @@ module arithmetic_right_shift_of_N_by_S_using_for_inside_always
 # (parameter N = 8, S = 3)
 (input  [N - 1:0] a, output logic [N - 1:0] res);
 
+  always_comb
+    for (int i = 0; i < N; i ++)
+      res [N - 1 - i] = i < S ? a [N-1] : a [N + S - 1 - i];
+
+
   // Task:
   //
   // Implement a module with the logic for the arithmetic right shift,
@@ -46,6 +53,17 @@ endmodule
 module arithmetic_right_shift_of_N_by_S_using_for_inside_generate
 # (parameter N = 8, S = 3)
 (input  [N - 1:0] a, output [N - 1:0] res);
+
+  genvar i;
+
+  generate
+    for (i = 0; i < N; i++)
+      if (i < S) begin : figure_gen_0_or_1
+        assign res [N - 1 - i] = a [N-1];
+      end else begin : shifted_bin_gen
+            assign res [N - 1 - i] = a [N + S - 1 - i];
+          end
+   endgenerate
 
   // Task:
   // Implement a module that arithmetically shifts input exactly

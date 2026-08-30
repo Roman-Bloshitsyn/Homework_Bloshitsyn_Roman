@@ -15,6 +15,110 @@ module formula_2_pipe_using_fifos
     output        res_vld,
     output [31:0] res
 );
+
+    logic y_vld_c, y_vld_bc, y_vld_bca;
+    logic [31:0] sum_bc, sum_bca;
+    logic [31:0] isqrt_c, isqrt_bc, isqrt_bca;
+
+
+//------------------------------------------------------------------------------------
+//Вызов трех модулей isqrt
+
+    isqrt isqrt_1 
+    (
+        .clk (clk),
+        .rst (rst),
+        .x_vld (arg_vld),
+        .x (c),
+        .y_vld (y_vld_c),
+        .y (isqrt_c)
+
+    );
+
+    isqrt isqrt_2 
+    (
+        .clk (clk),
+        .rst (rst),
+        .x_vld (vld_sumbc),
+        .x (sum_bc),
+        .y_vld (y_vld_bc),
+        .y (isqrt_bc)
+    );
+
+    isqrt isqrt_3 
+    (
+        .clk (clk),
+        .rst (rst),
+        .x_vld (vld_sumbca),
+        .x (sum_bca),
+        .y_vld (y_vld_bca),
+        .y (isqrt_bca)
+    );
+
+//------------------------------------------------------------------------------------
+//Вызов двух модулей fifo для хранения входящих данных a и b
+
+    logic [31:0] f_a, f_b;
+
+    flip_flop_fifo_with_counter #(.width (32), .depth (33)) fifo_a
+    (
+        .clk (clk),
+        .rst (rst),
+        .push (arg_vld),
+        .pop (y_vld_bc),
+        .write_data (a),
+        .read_data (f_a)
+    );
+    
+    flip_flop_fifo_with_counter #(.width (32), .depth (16)) fifo_b
+    (
+        .clk (clk),
+        .rst (rst),
+        .push (arg_vld),
+        .pop (y_vld_c),
+        .write_data (b),
+        .read_data (f_b)
+    );
+//-------------------------------------------------------------------------
+// Регистры для хранения валидных сигналов
+
+    logic vld_sumbc, vld_sumbca;
+
+    always_ff @ (posedge clk)
+        if (rst)
+            vld_sumbc <= '0;
+        else if (y_vld_c)
+            vld_sumbc <= 1'b1;
+        else
+            vld_sumbc <= 1'b0;
+
+    always_ff @ (posedge clk)
+        if (rst)
+            vld_sumbca <= '0;
+        else if (y_vld_bc)
+            vld_sumbca <= 1'b1;
+        else
+            vld_sumbca <= 1'b0;
+
+//-------------------------------------------------------------------------------------------
+//Регистры для записи результатов
+   
+    always_ff @ (posedge clk)
+        if (rst) 
+            sum_bc <= '0;
+        else if (y_vld_c)
+            sum_bc <= f_b + 32' (isqrt_c);
+
+    always_ff @ (posedge clk)
+        if (rst)
+            sum_bca <= '0;
+        else if (y_vld_bc)
+            sum_bca <= f_a + 32' (isqrt_bc);
+
+   assign res = y_vld_bca ? isqrt_bca : '0;
+   assign res_vld = y_vld_bca;
+
+//-------------------------------------------------------------------------
     // Task:
     //
     // Implement a pipelined module formula_2_pipe_using_fifos that computes the result

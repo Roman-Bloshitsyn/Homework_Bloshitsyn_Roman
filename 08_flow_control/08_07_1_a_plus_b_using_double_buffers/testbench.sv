@@ -223,7 +223,9 @@ module testbench
             // Uncomment the following `define
             // to generate a VCD file and analyze it using GTKwave
 
-            // $dumpvars;
+
+       $dumpfile("dump.vcd");
+       $dumpvars;
         `endif
 
         //--------------------------------------------------------------------

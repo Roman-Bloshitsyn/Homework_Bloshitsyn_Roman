@@ -10,6 +10,25 @@ module double_tokens
     output       b,
     output logic overflow
 );
+    logic [7:0] cnt;
+
+    assign b = a | (cnt != '0);
+
+    always_ff @ (posedge clk)
+        if (rst)
+            cnt <= 'b0;
+        else if (a)
+                cnt <= cnt + 1'd1;
+            else
+                cnt <= (cnt == '0) ? '0 : (cnt - 1'd1);
+        
+    always_ff @ (posedge clk)
+        if (rst)
+            overflow <= 1'b0;
+        else if (cnt >= 'd199) 
+            overflow <= 1'b1;
+
+
     // Task:
     // Implement a serial module that doubles each incoming token '1' two times.
     // The module should handle doubling for at least 200 tokens '1' arriving in a row.

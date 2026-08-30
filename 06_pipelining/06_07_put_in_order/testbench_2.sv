@@ -220,12 +220,8 @@ module testbench_2;
 
     task run ();
 
-        `ifdef __ICARUS__
-            // Uncomment the following line
-            // to generate a VCD file and analyze it using GTKwave or Surfer
-
-            //$dumpvars;
-        `endif
+    $dumpfile("06_07_put_in_order/dump.vcd");
+    $dumpvars(0, testbench_2);
 
         @ (negedge rst);
 

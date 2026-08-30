@@ -16,6 +16,63 @@ module formula_1_pipe
     output [31:0] res
 );
 
+    logic [31:0] res_a, res_b, res_c;
+    logic [31:0] sum_reg, sum;
+    logic y_vld, en, res_vld_reg;
+
+
+    isqrt isqrt_a  
+    (
+        .clk (clk),
+        .rst (rst),
+        .x_vld(arg_vld),
+        .x(a),
+        .y_vld (y_vld),
+        .y(res_a)
+    );
+
+    isqrt isqrt_b  
+    (
+        .clk (clk),
+        .rst (rst),
+        .x_vld(arg_vld),
+        .x(b),
+        .y(res_b)
+    );
+
+    isqrt isqrt_c 
+    (
+        .clk (clk),
+        .rst (rst),
+        .x_vld(arg_vld),
+        .x(c),
+        .y(res_c)
+    );
+
+    assign sum = res_a + res_b + res_c;
+
+    always_ff @(posedge clk)
+        if (rst) begin
+            res_vld_reg <= '0;
+            sum_reg <= '0;
+        end
+        else if (y_vld) begin
+            res_vld_reg <= '1;
+            sum_reg <= sum;
+        end
+            else
+             res_vld_reg <= '0;
+
+    assign res = sum_reg;
+    assign res_vld = res_vld_reg;
+
+
+
+
+
+
+    
+
     // Task:
     //
     // Implement a pipelined module formula_1_pipe that computes the result

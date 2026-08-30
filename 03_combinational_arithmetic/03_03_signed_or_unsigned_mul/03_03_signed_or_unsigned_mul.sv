@@ -52,5 +52,27 @@ module signed_or_unsigned_mul
   input                signed_mul,
   output [2 * n - 1:0] res
 );
+  logic signed [    n - 1:0] a_signed;
+  logic signed [    n - 1:0] b_signed;
+  logic signed [   2 * n - 1:0] res_signed;
+  logic [    n - 1:0] a_unsigned;
+  logic [    n - 1:0] b_unsigned;
+  logic [    2 * n - 1:0] res_unsigned;
+
+  always_comb 
+    if (signed_mul) begin
+      b_signed = b;
+      a_signed = a;
+      res_signed = a_signed * b_signed;
+    end
+    else begin 
+      a_unsigned = a;
+      b_unsigned = b;
+      res_unsigned = a_unsigned * b_unsigned;
+    end
+ 
+  assign res = signed_mul ? res_signed : res_unsigned;
+
+
 
 endmodule

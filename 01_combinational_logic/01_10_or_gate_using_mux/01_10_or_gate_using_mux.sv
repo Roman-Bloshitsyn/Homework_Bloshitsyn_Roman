@@ -24,6 +24,11 @@ module or_gate_using_mux
     output o
 );
 
+mux mux_1 (
+     .d0(a), .d1(1'b1),
+     .sel(b), .y(o)
+);
+
   // Task:
 
   // Implement or gate using instance(s) of mux,

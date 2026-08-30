@@ -246,12 +246,10 @@ module testbench;
 
     initial
     begin
-        `ifdef __ICARUS__
-            // Uncomment the following line
-            // to generate a VCD file and analyze it using GTKwave
 
-            // $dumpvars;
-        `endif
+    $dumpfile("06_06_float_discriminant_distributor/dump.vcd");
+    $dumpvars(0, testbench);
+
 
         run ();
 
