@@ -22,7 +22,9 @@ module sr_control
     output logic        regWrite,
     output logic        aluSrc,
     output logic        wdSrc,
-    output logic [ 2:0] aluControl
+    output logic [ 2:0] aluControl,
+    output logic        mduStart,
+    output logic        mduRes
 );
     logic          branch;
     logic          condZero;
@@ -35,6 +37,8 @@ module sr_control
         regWrite    = 1'b0;
         aluSrc      = 1'b0;
         wdSrc       = 1'b0;
+        mduStart    = 1'b0;
+        mduRes      = 1'b0;
         aluControl  = `ALU_ADD;
 
         casez ({ cmdF7, cmdF3, cmdOp })
@@ -43,6 +47,7 @@ module sr_control
             { `RVF7_SRL,  `RVF3_SRL,  `RVOP_SRL  } : begin regWrite = 1'b1; aluControl = `ALU_SRL;  end
             { `RVF7_SLTU, `RVF3_SLTU, `RVOP_SLTU } : begin regWrite = 1'b1; aluControl = `ALU_SLTU; end
             { `RVF7_SUB,  `RVF3_SUB,  `RVOP_SUB  } : begin regWrite = 1'b1; aluControl = `ALU_SUB;  end
+            { `RVF7_MUL,  `RVF3_MUL,  `RVOP_MUL  } : begin regWrite = 1'b1; mduStart = 1'b1; mduRes = 1'b1; end
 
             { `RVF7_ANY,  `RVF3_ADDI, `RVOP_ADDI } : begin regWrite = 1'b1; aluSrc = 1'b1; aluControl = `ALU_ADD; end
             { `RVF7_ANY,  `RVF3_ANY,  `RVOP_LUI  } : begin regWrite = 1'b1; wdSrc  = 1'b1; end

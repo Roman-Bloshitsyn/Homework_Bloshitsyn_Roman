@@ -13,12 +13,12 @@
 fibonacci:
 
         mv      a0, zero
-        li      t0, 1
+       li      t0, 1
 
 loop:   add     t1, a0, t0
         mv      a0, t0
         mv      t0, t1
-        beqz    zero, loop
+       beqz    zero, loop
 
 # RISC-V factorial program
 # Uncomment it when necessary

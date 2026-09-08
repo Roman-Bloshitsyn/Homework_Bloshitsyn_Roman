@@ -57,9 +57,19 @@ module sr_cpu
         .clk      ( clk       ),
         .rst      ( rst       ),
         .d        ( pcNext    ),
-        .q        ( pc        )
+        .q        ( pc        ),
+        .en       ( valid     )
     );
 
+    //register valid
+
+    logic valid;
+
+    always_ff @ (posedge clk)
+        if (rst)
+            valid <= 1'b0;
+        else
+            valid <= ~valid;
 
     // program memory access
 
@@ -100,7 +110,7 @@ module sr_cpu
         .rd1        ( rd1                  ),
         .rd2        ( rd2                  ),
         .wd3        ( wd3                  ),
-        .we3        ( regWrite
+        .we3        ( regWrite & valid
         )
     );
 

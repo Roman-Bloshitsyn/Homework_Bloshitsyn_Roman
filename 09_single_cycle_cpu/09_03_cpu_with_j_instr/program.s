@@ -27,7 +27,7 @@ loop:   add     t1, a0, t0
 # RISC-V factorial program
 # Uncomment it when necessary
 
-# factorial:
+ factorial:
 #
 #         li      a0, 1
 #         li      t0, 2

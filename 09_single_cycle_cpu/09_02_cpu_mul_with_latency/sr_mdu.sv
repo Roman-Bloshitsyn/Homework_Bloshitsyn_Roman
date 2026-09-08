@@ -28,6 +28,29 @@ module sr_mdu
     output              busy
 );
 
+    shift_register # (.width(32), .depth(n_delay)) res_shift_reg
+    (
+        .clk              (clk),
+        .in_data  (srcA * srcB),
+        .out_data (result)
+    );
+
+    logic [n_delay - 1:0] i_vld_shift_reg;
+
+    always_ff @ (posedge clk)
+        if (rst)
+            i_vld_shift_reg <= '0;
+        else
+        begin
+            i_vld_shift_reg [0] <= i_vld;
+
+            for (int i = 1; i < n_delay; i ++)
+                i_vld_shift_reg [i] <= i_vld_shift_reg [i - 1];
+        end
+
+    assign o_vld = i_vld_shift_reg [n_delay - 1];
+    assign busy = |i_vld_shift_reg;
+    
 endmodule
 
 //----------------------------------------------------------------------------
