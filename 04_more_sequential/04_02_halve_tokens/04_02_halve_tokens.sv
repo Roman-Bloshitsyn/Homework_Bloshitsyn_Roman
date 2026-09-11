@@ -9,6 +9,10 @@ module halve_tokens
     input  a,
     output b
 );
+
+//----------------------------------------------------------------------------
+//Corrected: the meaningless expression in else save <= save has been removed 
+
     logic save;
 
     assign b = a ? save : 'b0;
@@ -17,9 +21,7 @@ module halve_tokens
         if (rst)
             save <= 'b0;
         else if (a)
-                save <= ~ save;
-            else 
-                save <= save;
+            save <= ~ save;
 
     // Task:
     // Implement a serial module that reduces amount of incoming '1' tokens by half.

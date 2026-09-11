@@ -48,10 +48,13 @@ module serial_comparator_most_significant_first
   output a_greater_b
 );
 
+//----------------------------------------------------------------------------
+//Corrected: simplified expression for a_less_b
+
   logic prev_a_eq_b, prev_a_less_b;
 
   assign a_eq_b      = prev_a_eq_b & (a == b);
-  assign a_less_b    = (~ a & b & prev_a_eq_b) | (a == b & prev_a_less_b) | ((a ^ b) & prev_a_less_b);
+  assign a_less_b    = (~ a & b & prev_a_eq_b) | prev_a_less_b; // 
   assign a_greater_b = (~ a_eq_b) & (~ a_less_b);
 
   always_ff @ (posedge clk)

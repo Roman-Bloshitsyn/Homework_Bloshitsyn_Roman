@@ -10,15 +10,18 @@ module round_robin_arbiter_with_2_requests
     output [1:0] grants
 );
 
+//----------------------------------------------------------------------------
+//Fixed: now, after “rst” if there are two requests, priority is given to the first requester
+
     logic [1:0] out;
-    logic [1:0] save;
+    logic second;
 
     always_comb begin
         case (requests)
             2'b00: out = 2'b00;
             2'b01: out = 2'b01;
             2'b10: out = 2'b10;
-            2'b11: out = ~save;
+            2'b11: out = second ? 2'b10 : 2'b01;
         endcase
      end
 
@@ -26,9 +29,9 @@ module round_robin_arbiter_with_2_requests
 
     always_ff @(posedge clk) 
         if (rst)
-          save <= '0;
-        else
-          save <= out;
+          second <= '0;
+        else 
+          second <= (out == 2'b01) ? '1 : (out == 2'b10) ? '0 : second;
 
     
     // Task:

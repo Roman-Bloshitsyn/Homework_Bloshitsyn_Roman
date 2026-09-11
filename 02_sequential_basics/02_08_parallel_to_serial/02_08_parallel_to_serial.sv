@@ -17,42 +17,41 @@ module parallel_to_serial
     output logic               serial_valid,
     output logic               serial_data
 );
+//----------------------------------------------------------------------------
+//Fixed: improved code readability and implemented serial_valid in a combinational way
 
     localparam cnt_width = $clog2(width);
     logic [cnt_width - 1:0] cnt;
     logic [width - 1:0] shift_reg;
-    
-    always_comb
-      if (parallel_valid)
-        serial_valid = parallel_valid;
+
+    assign serial_valid = parallel_valid | (cnt != '0);
     
     always_ff @ (posedge clk) 
-      if (rst) begin
-        serial_valid <= 0;
+    begin
+      if (rst) 
         cnt <= 0; 
+    
+      if (parallel_valid) 
+      begin
+        shift_reg <= { 1'b0, parallel_data[width - 1:1] };
+        cnt       <= width - 1;
       end
-      else if (parallel_valid) begin
-             shift_reg <= { 1'b0, parallel_data[width - 1:1] };
-             cnt <= width - 1;
-             serial_valid <= '1;
-            end
-           else if ( cnt != '0) begin
-               shift_reg <= { 1'b0, shift_reg[width - 1:1] }; 
-               cnt <= cnt - 1'd1;
-               serial_valid <= ( cnt != 1'd1);
-                end
+     
+      if ( cnt != '0) 
+      begin
+        shift_reg <= { 1'b0, shift_reg[width - 1:1] }; 
+        cnt <= cnt - 1'd1;
+      end
+    end
+
     always_comb 
         if (parallel_valid)
             serial_data = parallel_data[0];         
         else
             serial_data = shift_reg[0];     
 
-     assign busy = (cnt != 0);
-
-         
-
-
-
+    assign busy = (cnt != 0);
+    
     // Task:
     // Implement a module that converts multi-bit parallel value to the single-bit serial data.
     //

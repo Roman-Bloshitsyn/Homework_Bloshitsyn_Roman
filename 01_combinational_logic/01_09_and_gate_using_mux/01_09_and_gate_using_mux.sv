@@ -24,9 +24,16 @@ module and_gate_using_mux
     output o
 );
 
+//----------------------------------------------------------------------------
+//Fixed: a more elegant notation for the connected instance
+
+
 mux mux_1 (
-     .d0(1'b0), .d1(a),
-     .sel(b), .y(o)
+     .d0  (1'b0), 
+     .d1  (a),
+     .sel (b), 
+     .y   (o)
+     
 ); 
 
   // Task:

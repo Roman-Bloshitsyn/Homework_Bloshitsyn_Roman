@@ -73,6 +73,9 @@ module sort_three_floats (
     output logic [0:2][FLEN - 1:0] sorted,
     output                         err
 );
+
+//----------------------------------------------------------------------------
+//Fixed: code readability has been improved by adding concatenation.
     
     logic [0:2][FLEN - 1:0] stage_1;
     logic [0:2][FLEN - 1:0] stage_2;
@@ -86,52 +89,59 @@ module sort_three_floats (
         .a   ( unsorted [0]        ),
         .b   ( unsorted [1]        ),
         .res ( u0_less_or_equal_u1 ),
-        .err ( err_1                 )
+        .err ( err_1               )
     );
 
-    always_comb begin
-        if (u0_less_or_equal_u1) begin
-            stage_1 [0] = unsorted [0];
-            stage_1 [1] = unsorted [1];
-        end else
-            { stage_1 [1], stage_1 [0]} 
-            = { unsorted [0], unsorted [1]};
-        stage_1 [2] = unsorted [2];
+    always_comb 
+    begin
+        if (u0_less_or_equal_u1) 
+        begin
+            {stage_1 [0], stage_1 [1]  } 
+          = {unsorted [0], unsorted [1]};
+        end 
+        else
+            { stage_1 [1], stage_1 [0]  } 
+          = { unsorted [0], unsorted [1]};
+    
+    stage_1 [2] = unsorted [2];
     end        
    
     f_less_or_equal i_floe_2
     (
         .a   ( stage_1 [1]        ),
         .b   ( stage_1 [2]        ),
-        .res ( s1_less_or_equal_s2 ),
-        .err ( err_2                 ) 
+        .res ( s1_less_or_equal_s2),
+        .err ( err_2              ) 
     );
 
-    always_comb begin
+    always_comb 
+    begin
         stage_2 = stage_1;
 
-        if (s1_less_or_equal_s2) begin
-            stage_2 [1] = stage_1 [1];
-            stage_2 [2] = stage_1 [2];
-        end else
+        if (s1_less_or_equal_s2) 
+        begin
+            {stage_2 [1], stage_2 [2]} 
+          = {stage_1 [1], stage_1 [2]};
+        end 
+        else
             { stage_2 [2], stage_2 [1]} 
-            = { stage_1 [1], stage_1 [2]};
+          = { stage_1 [1], stage_1 [2]};
     end
 
     f_less_or_equal i_floe_3
     (
         .a   ( stage_2 [0]        ),
         .b   ( stage_2 [1]        ),
-        .res ( s0_less_or_equal_s1 ),
-        .err ( err_3                 ) 
+        .res ( s0_less_or_equal_s1),
+        .err ( err_3              ) 
     );
 
     always_comb
     if ( s0_less_or_equal_s1)
         sorted = stage_2;
     else
-        { sorted [2], sorted[1], sorted [0]} 
-        = { stage_2 [2], stage_2 [0], stage_2 [1]};
+        { sorted [2], sorted[1], sorted [0]    } 
+      = { stage_2 [2], stage_2 [0], stage_2 [1]};
 
     assign err = err_1 | err_2 | err_3;
 
@@ -146,6 +156,5 @@ module sort_three_floats (
     //
     // The FLEN parameter is defined in the "import/preprocessed/cvw/config-shared.vh" file
     // and usually equal to the bit width of the double-precision floating-point number, FP64, 64 bits.
-
 
 endmodule

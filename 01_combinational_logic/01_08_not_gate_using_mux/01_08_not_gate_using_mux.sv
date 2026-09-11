@@ -17,6 +17,10 @@ endmodule
 // Task
 //----------------------------------------------------------------------------
 
+//----------------------------------------------------------------------------
+//Fixed: a more elegant notation for the connected instance
+
+
 module not_gate_using_mux
 (
     input  i,
@@ -24,8 +28,10 @@ module not_gate_using_mux
 );
 
 mux mux_1 (
-      .d0(1'b1), .d1(1'b0),
-      .sel(i), .y(o)
+      .d0  (1'b1), 
+      .d1  (1'b0),
+      .sel (i), 
+      .y   (o)
 );
 
 

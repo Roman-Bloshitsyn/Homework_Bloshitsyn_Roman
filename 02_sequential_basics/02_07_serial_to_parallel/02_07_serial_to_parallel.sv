@@ -18,18 +18,15 @@ module serial_to_parallel
 );
     localparam cnt_width = $clog2(width);
     logic [cnt_width - 1:0] cnt;
-    logic save;
-    
-    assign save = serial_data;
 
     always_ff @ (posedge clk)
         if (rst)
             cnt <= '0;
         else if (serial_valid)
-               if (cnt == width - 1)
-                 cnt <= '0;
-               else 
-                 cnt <= cnt + 1'd1;
+             if (cnt == width - 1)
+                cnt <= '0;
+             else 
+                cnt <= cnt + 1'd1;
      
     assign parallel_valid = (cnt == width - 1) & serial_valid;
 
@@ -38,12 +35,11 @@ module serial_to_parallel
     always_ff @ (posedge clk )
         if (rst)
             shift_reg <= '0;
-        else if ( ~ parallel_valid )
-               if (serial_valid)
-                 shift_reg <= { serial_data, shift_reg [width - 1:1] };
+        else if (serial_valid)                                  // <--removed & ~ parallel_valid
+            shift_reg <= { serial_data, shift_reg [width - 1:1] };
     
     always_comb
-      if (parallel_valid & serial_valid )
+      if (parallel_valid)                                       // <--removed & serial_valid
         parallel_data = {serial_data, shift_reg [width - 1:1]};
 
                

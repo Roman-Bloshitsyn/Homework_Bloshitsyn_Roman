@@ -34,6 +34,7 @@ module mux_4_1
       2'd1: y = d1;
       2'd2: y = d2;
       2'd3: y = d3;
+      default: y = 4'b0; //<-- default case to handle unexpected values of sel
     endcase
 
   // Task:

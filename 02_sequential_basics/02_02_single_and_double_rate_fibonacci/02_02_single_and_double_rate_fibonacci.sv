@@ -31,27 +31,19 @@ module fibonacci_2
   output logic [15:0] num2
 );
 
-
-logic [15:0] num3;
-logic [15:0] num4;
+//----------------------------------------------------------------------------
+//The solution is reduced by two registers.
 
 always_ff @ (posedge clk) begin
     if (rst) begin
-      num <= 'd1;
+      num  <= 'd1;
       num2 <= 'd1;
-      num3 <= 'd2;
-      num4 <= 'd3;
     end
     else begin
-      num <= num3;
-      num2 <= num4;
-      num3 <= num3 + num4;
-      num4 <= num4 + num4 + num3;
-
+      num  <= num + num2;
+      num2 <= num + 2*num2;
     end
 end
-            
-
 
   // Task:
   // Implement a module that generates two fibonacci numbers per cycle

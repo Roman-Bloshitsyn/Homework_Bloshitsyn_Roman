@@ -22,12 +22,12 @@ module signed_add_with_overflow
   output [3:0] sum,
   output       overflow
 );
-  
-  assign sum = a + b;
 
-  assign overflow = ((a[3] == b[3]) & (sum[3] != a[3]));   
+//----------------------------------------------------------------------------
+//Fixed: solution in one assign
 
-    
+  assign {overflow, sum} = {((a[3] == b[3]) & (sum[3] != a[3])), a + b};
+
   // Task:
   //
   // Implement a module that adds two signed numbers

@@ -16,9 +16,13 @@ module gearbox_1_to_2
     output                   down_vld,  // downstream
     output [2 * width - 1:0] down_data
 );
+
+//----------------------------------------------------------------------------
+//Fixed: the case was replaced with if else; 
+//The code was simplified by removing unnecessary assign statements and variables.
+
     logic [width - 1:0] save;
     logic save_vld;
-    logic [1:0] valid;
 
     always_ff @(posedge clk)
         if (rst)
@@ -27,23 +31,15 @@ module gearbox_1_to_2
             save_vld <= up_vld ? (~ save_vld) : (save_vld);
 
     assign down_vld = save_vld & up_vld;
-    assign valid = {up_vld, down_vld};
 
     always_ff @(posedge clk)
         if (rst)
             save <= '0;
-        else 
-            case (valid)
-            2'b00: save <= save;
-            2'b01: save <= 1'b0;
-            2'b10: save <= up_data;
-            2'b11: save <= 1'b0;
-            endcase
-    
-    assign down_data = (up_vld & down_vld) ? {save, up_data} : '0;
+        else if (up_vld)
+            save <= up_data;
+
+    assign down_data = {save, up_data};
          
-              
-        
     // Task:
     // Implement a module that transforms a stream of data
     // from 'width' to the 2*'width' data width.

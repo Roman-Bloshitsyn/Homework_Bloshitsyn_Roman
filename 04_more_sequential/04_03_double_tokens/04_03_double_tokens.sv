@@ -10,6 +10,10 @@ module double_tokens
     output       b,
     output logic overflow
 );
+
+//----------------------------------------------------------------------------
+//Fixed: the readability of the always_ff block has improved due to the removal of the ternary operator.
+
     logic [7:0] cnt;
 
     assign b = a | (cnt != '0);
@@ -18,9 +22,17 @@ module double_tokens
         if (rst)
             cnt <= 'b0;
         else if (a)
-                cnt <= cnt + 1'd1;
-            else
-                cnt <= (cnt == '0) ? '0 : (cnt - 1'd1);
+            cnt <= cnt + 1'd1;
+        else if (cnt > '0)
+            cnt <= cnt - 1'd1;
+
+    // always_ff @ (posedge clk)
+    //     if (rst)
+    //         cnt <= 'b0;
+    //     else
+    //         cnt <= a ? cnt + 1 
+    //                  : (cnt == '0) ? '0 
+    //                                : cnt - 1'd1;
         
     always_ff @ (posedge clk)
         if (rst)
