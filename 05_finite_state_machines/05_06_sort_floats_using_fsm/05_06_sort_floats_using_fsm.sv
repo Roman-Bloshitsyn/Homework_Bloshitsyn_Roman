@@ -20,6 +20,8 @@ module sort_floats_using_fsm (
     input                          f_le_res,
     input                          f_le_err
 );
+//------------------------------------------------------------
+// Fixed: the busy signal output has been reworked
 
     enum logic[1:0]
     {
@@ -105,7 +107,7 @@ module sort_floats_using_fsm (
     
     end
 
-    assign busy = ((state == u0_and_u1) | (state == s1_and_u2) | (state == s0_and_s1)) & ~ err;
+    assign busy = (state != u0_and_u1);
 
 //------------------------------------------------------------
 //Присваиваем следующее состояние                  

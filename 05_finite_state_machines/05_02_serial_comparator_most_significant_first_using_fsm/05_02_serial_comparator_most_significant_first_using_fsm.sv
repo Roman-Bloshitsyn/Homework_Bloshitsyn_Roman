@@ -65,6 +65,8 @@ module serial_comparator_most_significant_first_using_fsm
   output a_eq_b,
   output a_greater_b
 );
+//----------------------------------------------------------------------------
+//Fixed: for better readability, the state machine now includes an explicit sticky state.
 
   // States
   enum logic[2:0]
@@ -86,6 +88,10 @@ module serial_comparator_most_significant_first_using_fsm
     case (state)
       st_equal       : if (  a & ~ b) new_state = st_a_greater_b;
                   else if (~ a &   b) new_state = st_a_less_b;
+      
+      st_a_less_b    :                new_state = st_a_less_b;
+      
+      st_a_greater_b :                new_state = st_a_greater_b;
     endcase
 
     // verilator lint_on  CASEINCOMPLETE

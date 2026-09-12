@@ -18,6 +18,11 @@ module float_discriminant (
 
     output logic              busy
 );
+
+//----------------------------------------------------------------------------
+//Fixed: reworked the busy state 
+//Added a protocol to return to the initial state “multiply_bb” after returning an error
+
     localparam [FLEN - 1:0] four = 64'h4010_0000_0000_0000;
     logic [FLEN - 1:0] mult_a, mult_b, mult_res, sub_res, sub_a, sub_b;
     logic mult_up_valid, mult_down_valid, mult_busy, mult_err;
@@ -83,52 +88,88 @@ module float_discriminant (
                 mult_b = b;
                 mult_up_valid = 1'b1; 
                 next_state = multiply_ac;
-                err = mult_err;
             end 
         end
 
         multiply_ac:
         begin
-            if (mult_down_valid) begin
-                mult_a = a;
-                mult_b = c;
-                mult_up_valid = 1'b1;
-                next_state = multiply_4ac;
-                err = mult_err;
+            if (mult_down_valid) 
+            begin
+                
+                if (mult_err) 
+                begin
+                    err = 1'b1;
+                    next_state = multiply_bb;
+                end 
+                else 
+                begin
+                    mult_a = a;
+                    mult_b = c;
+                    mult_up_valid = 1'b1;
+                    next_state = multiply_4ac;
+                end
+
             end
         end
 
         multiply_4ac:
         begin
-            if (mult_down_valid) begin
-                mult_a = four;
-                mult_b = mult_res;
-                mult_up_valid = 1'b1;  
-                next_state = sub_bb_4ac;
-                err = mult_err;
+            if (mult_down_valid) 
+            begin
+                
+                if (mult_err) 
+                begin
+                    err = 1'b1;
+                    next_state = multiply_bb;
+                end 
+                else
+                begin
+                    mult_a = four;
+                    mult_b = mult_res;
+                    mult_up_valid = 1'b1;  
+                    next_state = sub_bb_4ac;
+                end
+
             end
         end
 
         sub_bb_4ac:
         begin
-            if (mult_down_valid) begin
-                sub_a = mult_res_1;
-                sub_b = mult_res;
-                sub_up_valid = 1'b1;  
-                next_state = wait_sub;
-                err = mult_err;
+            if (mult_down_valid) 
+            begin
+                
+                if (mult_err)
+                begin
+                    err = 1'b1;
+                    next_state = multiply_bb;
+                end
+                else 
+                begin
+                    sub_a = mult_res_1;
+                    sub_b = mult_res;
+                    sub_up_valid = 1'b1;  
+                    next_state = wait_sub;
+                end
             end
         end
+
         wait_sub:
         begin
             if (sub_down_valid)
-                next_state = multiply_bb;
-                err = sub_err;
+            begin
+                if (sub_err)
+                begin
+                    err = 1'b1;
+                    next_state = multiply_bb;
+                end
+                else
+                    next_state = multiply_bb;
+            end
         end
         endcase
     end
 
-    assign busy = (state == multiply_ac) | (state == multiply_4ac) | (state == sub_bb_4ac) | (state == multiply_bb) & ~ err;
+    assign busy = (state != multiply_bb);
 
     always_ff @ (posedge clk)
         if (rst)
@@ -162,11 +203,7 @@ module float_discriminant (
             state <= multiply_bb;
         else
             state <= next_state;
-                                
-
-            
-        
-
+                            
     // Task:
     // Implement a module that accepts three Floating-Point numbers and outputs their discriminant.
     // The resulting value res should be calculated as a discriminant of the quadratic polynomial.

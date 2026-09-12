@@ -42,7 +42,7 @@ module formula_2_fsm
         next_state  = state;
 
         isqrt_x_vld = '0;
-        isqrt_x     = 'x;  // Don't care
+        isqrt_x     =  c;  // Don't care
 
         // This lint warning is bogus because we assign the default value above
         // verilator lint_off CASEINCOMPLETE

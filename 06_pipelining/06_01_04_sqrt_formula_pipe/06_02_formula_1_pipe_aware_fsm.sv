@@ -23,6 +23,9 @@ module formula_1_pipe_aware_fsm
     input               isqrt_y_vld,
     input        [15:0] isqrt_y
 );
+
+//----------------------------------------------------------------------------
+//Fixed: the data registers have been pulled out from under the reset
     
     logic [31:0] reg_b, reg_c_1, reg_c_2;
 
@@ -43,7 +46,7 @@ module formula_1_pipe_aware_fsm
         next_state = state;
 
         isqrt_x_vld = '0;
-        isqrt_x     = 'x;
+        isqrt_x     =  a;  //<-- removed 'x
 
         case (state)
         st_idle:
@@ -118,16 +121,11 @@ module formula_1_pipe_aware_fsm
 //Регистры
 
     always_ff @ (posedge clk)
-        if (rst) begin
-            reg_b <= '0;
-            reg_c_1 <= '0;
-            reg_c_2 <= '0;
-        end
-        else begin
-                reg_b <= b;
-                reg_c_1 <= c;
-                reg_c_2 <= reg_c_1;
-        end
+    begin
+        reg_b <= b;
+        reg_c_1 <= c;
+        reg_c_2 <= reg_c_1;
+    end
             
 
     // Task:

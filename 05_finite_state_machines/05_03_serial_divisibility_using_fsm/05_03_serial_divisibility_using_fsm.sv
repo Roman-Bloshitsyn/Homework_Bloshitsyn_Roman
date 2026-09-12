@@ -10,6 +10,15 @@ module serial_divisibility_by_3_using_fsm
   output div_by_3
 );
 
+//Numbering to suit the synthesizer of choice 
+//----------------------------------------------------------------------------
+  // enum logic[2:0]
+  // {
+  // mod_0, mod_1, mod_2, mod_3, mod_4
+  // }
+  // state, new_state;
+//----------------------------------------------------------------------------
+
   // States
   enum logic[1:0]
   {

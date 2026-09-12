@@ -16,6 +16,9 @@ module put_in_order
 );
 
 //---------------------------------------------------------------------
+//Fixed: the ternary operator has been removed in down_data
+
+//---------------------------------------------------------------------
 //Буфер, который хранит в себе значения, пришедших данных
 
     logic [width - 1:0] bufer [0:n_inputs - 1];
@@ -50,7 +53,7 @@ module put_in_order
     end
 
     assign down_vld = down_vld_1;   
-    assign down_data = down_vld_1 ? down_data_1 [state] : 'x;
+    assign down_data = down_data_1 [state];
 
     always_ff @(posedge clk)
     begin

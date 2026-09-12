@@ -24,6 +24,9 @@ module formula_2_fsm
     input        [15:0] isqrt_y
 );
 
+//----------------------------------------------------------------------------
+//Fixed: the invalid value of “x” in “isqrt_x”  have been replaced with “c”
+
     enum logic [2:0]
     {
         st_idle       = 3'd0,
@@ -41,7 +44,7 @@ module formula_2_fsm
         next_state  = state;
 
         isqrt_x_vld = '0;
-        isqrt_x     = 'x;  // Don't care
+        isqrt_x     = c;  // Don't care
 
         // This lint warning is bogus because we assign the default value above
         // verilator lint_off CASEINCOMPLETE

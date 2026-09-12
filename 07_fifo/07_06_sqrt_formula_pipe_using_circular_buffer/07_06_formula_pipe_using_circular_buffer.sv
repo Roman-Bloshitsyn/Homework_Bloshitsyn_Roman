@@ -15,6 +15,12 @@ module formula_2_pipe_using_circular
     output        res_vld,
     output [31:0] res
 );
+
+//------------------------------------------------------------------------------------
+//The res multiplexing has been removed
+
+logic [31:0] isqrt_c, isqrt_bc, isqrt_bca;
+logic y_vld_c, y_vld_bc, y_vld_bca;
     
 //------------------------------------------------------------------------------------
 //Вызов трех модулей isqrt
@@ -96,6 +102,8 @@ module formula_2_pipe_using_circular
 
 //-------------------------------------------------------------------------------------------
 //Регистры для записи результатов
+
+    logic [31:0] sum_bc, sum_bca;
    
     always_ff @ (posedge clk)
         if (rst) 
@@ -109,7 +117,7 @@ module formula_2_pipe_using_circular
         else if (y_vld_bc)
             sum_bca <= circ_a + 32' (isqrt_bc);
 
-   assign res = y_vld_bca ? isqrt_bca : '0;
+   assign res = isqrt_bca;
    assign res_vld = y_vld_bca;
 
 //-----------------------------------------------------------------------------------------

@@ -30,6 +30,9 @@ module formula_1_impl_2_fsm
     input        [15:0] isqrt_2_y
 );
 
+//----------------------------------------------------------------------------
+//Fixed: the invalid values of “x” in “isqrt_1_x” and “isqrt_2_x” have been replaced with “a” and “b”
+
     //------------------------------------------------------------------------
     // States
 
@@ -50,8 +53,8 @@ module formula_1_impl_2_fsm
 
         isqrt_1_x_vld = '0;
         isqrt_2_x_vld = '0;
-        isqrt_1_x     = 'x;  // Don't care
-        isqrt_2_x     = 'x;
+        isqrt_1_x     =  a;  // Don't care
+        isqrt_2_x     =  b;
 
         // This lint warning is bogus because we assign the default value above
         // verilator lint_off CASEINCOMPLETE

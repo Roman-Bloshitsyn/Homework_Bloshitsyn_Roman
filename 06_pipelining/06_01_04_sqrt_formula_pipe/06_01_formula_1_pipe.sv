@@ -16,6 +16,10 @@ module formula_1_pipe
     output [31:0] res
 );
 
+//----------------------------------------------------------------------------
+// Fixed: the sum result has been moved out from under the reset, 
+// And the valid flag has been moved to another block, always_ff.
+
     logic [31:0] res_a, res_b, res_c;
     logic [31:0] sum_reg, sum;
     logic y_vld, en, res_vld_reg;
@@ -52,16 +56,14 @@ module formula_1_pipe
     assign sum = res_a + res_b + res_c;
 
     always_ff @(posedge clk)
-        if (rst) begin
-            res_vld_reg <= '0;
-            sum_reg <= '0;
-        end
-        else if (y_vld) begin
-            res_vld_reg <= '1;
+        if (y_vld) 
             sum_reg <= sum;
-        end
-            else
-             res_vld_reg <= '0;
+
+    always_ff @(posedge clk)
+        if (rst)
+            res_vld_reg <= '0;
+        else
+            res_vld_reg <= y_vld;
 
     assign res = sum_reg;
     assign res_vld = res_vld_reg;

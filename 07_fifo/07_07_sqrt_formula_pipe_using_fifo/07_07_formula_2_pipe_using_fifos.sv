@@ -16,10 +16,13 @@ module formula_2_pipe_using_fifos
     output [31:0] res
 );
 
+//----------------------------------------------------------------------------
+//The res multiplexing has been removed and,
+//The if-else was fixed for vld_sumbc and vld_sumbca
+
     logic y_vld_c, y_vld_bc, y_vld_bca;
     logic [31:0] sum_bc, sum_bca;
     logic [31:0] isqrt_c, isqrt_bc, isqrt_bca;
-
 
 //------------------------------------------------------------------------------------
 //Вызов трех модулей isqrt
@@ -87,18 +90,14 @@ module formula_2_pipe_using_fifos
     always_ff @ (posedge clk)
         if (rst)
             vld_sumbc <= '0;
-        else if (y_vld_c)
-            vld_sumbc <= 1'b1;
-        else
-            vld_sumbc <= 1'b0;
+        else 
+            vld_sumbc <= y_vld_c;
 
     always_ff @ (posedge clk)
         if (rst)
             vld_sumbca <= '0;
-        else if (y_vld_bc)
-            vld_sumbca <= 1'b1;
         else
-            vld_sumbca <= 1'b0;
+            vld_sumbca <= y_vld_bc;
 
 //-------------------------------------------------------------------------------------------
 //Регистры для записи результатов
@@ -115,7 +114,7 @@ module formula_2_pipe_using_fifos
         else if (y_vld_bc)
             sum_bca <= f_a + 32' (isqrt_bc);
 
-   assign res = y_vld_bca ? isqrt_bca : '0;
+   assign res = isqrt_bca;
    assign res_vld = y_vld_bca;
 
 //-------------------------------------------------------------------------

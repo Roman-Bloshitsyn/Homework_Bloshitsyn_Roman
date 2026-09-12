@@ -29,6 +29,8 @@ module formula_1_impl_2_fsm
     input               isqrt_2_y_vld,
     input        [15:0] isqrt_2_y
 );
+//----------------------------------------------------------------------------
+//Removed 'x
 
 
     //------------------------------------------------------------------------
@@ -51,8 +53,8 @@ module formula_1_impl_2_fsm
 
         isqrt_1_x_vld = '0;
         isqrt_2_x_vld = '0;
-        isqrt_1_x     = 'x;  // Don't care
-        isqrt_2_x     = 'x;
+        isqrt_1_x     =  a;  // Don't care
+        isqrt_2_x     =  b;
 
         // This lint warning is bogus because we assign the default value above
         // verilator lint_off CASEINCOMPLETE
@@ -127,6 +129,7 @@ module formula_1_impl_2_fsm
             res <= '0;
         else if (isqrt_1_y_vld & ~ isqrt_2_y_vld)
             res <= res_ab + 32'(isqrt_1_y);
+            
     // Task:
     // Implement a module that calculates the formula from the `formula_1_fn.svh` file
     // using two instances of the isqrt module in parallel.
